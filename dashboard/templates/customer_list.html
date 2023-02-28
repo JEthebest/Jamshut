@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Customers</h1>
+  <a href="{% url 'dashboard:customer_create' %}" class="btn btn-primary">Create a new employee</a>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Location</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for customer in customers %}
+            <tr>
+              <td><a href="{% url 'dashboard:customer_detail' customer.id %}">{{ customer.customer_name }}</a></td>
+              <td>{{ customer.age }}</td>
+              <td>{{ customer.gender }}</td>
+              <td>{{ customer.location }}</td>
+              <td>
+          <a href="{% url 'dashboard:customer_update' customer.id %}" class="btn btn-secondary">Edit</a>
+          <form method="post" action="{% url 'dashboard:customer_delete' customer.id %}" style="display: inline-block;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="5">No customers found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

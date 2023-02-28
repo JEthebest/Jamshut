@@ -1,0 +1,69 @@
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+  
+    h1 {
+      color: #333;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      font-size: 28px;
+      text-align: center;
+    }
+  
+    p {
+      color: #666;
+      font-size: 18px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+  
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+  
+    li {
+      margin: 10px 0;
+      padding: 5px;
+      border-radius: 5px;
+      background-color: #fff;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+  
+    li:hover {
+      background-color: #f2f2f2;
+    }
+  
+    li:first-child {
+      margin-top: 0;
+    }
+  
+    li:last-child {
+      margin-bottom: 0;
+    }
+  
+    p:last-child {
+      margin-bottom: 20px;
+    }
+  
+    .total {
+      font-weight: bold;
+      font-size: 20px;
+      margin-top: 20px;
+    }
+  </style>
+<h1>{{ employee.employee_name }}</h1>
+<p>Все заказы:</p>
+<ul>
+{% for order in orders %}
+    <li>{{ order.order_name }} - {{ order.amount }}</li>
+{% empty %}
+    <li>У этого сотрудника пока нет заказов.</li>
+{% endfor %}
+</ul>
+<p>Общая сумма заказов: {{ total_amount }}</p>

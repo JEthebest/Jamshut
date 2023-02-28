@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+
+{% block content %}
+  <h1>Locations</h1>
+  <div class="row mb-3">
+    <div class="col-6">
+      <a href="{% url 'markets:location_create' %}" class="btn btn-primary">Create a new location</a>
+    </div>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for location in locations %}
+      <tr>
+        <td>{{ location.location_name }}</td>
+        <td>
+          <a href="{% url 'markets:location_update' location.id %}" class="btn btn-outline-primary btn-sm me-2">Edit</a>
+          <form method="post" action="{% url 'markets:location_delete' location.id %}" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="2">No locations found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %} 

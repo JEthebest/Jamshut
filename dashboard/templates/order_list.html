@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1>Orders</h1>
+    <a class="btn btn-primary" href="{% url 'dashboard:order_create' %}">Create a new order</a>
+    <table class="table mt-4">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Product</th>
+          <th scope="col">Price</th>
+          <th scope="col">Customer</th>
+          <th scope="col">Employee</th>
+          <th scope="col">Date Created</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orders %}
+        <tr>
+          <td>{{ order.order_name }}</td>
+          <td>{{ order.product }}</td>
+          <td>{{ order.amount }}</td>
+          <td>{{ order.customer }}</td>
+          <td>{{ order.employee }}</td>
+          <td>{{ order.date }}</td>
+          <td>
+            <a href="{% url 'dashboard:order_update' order.id %}" class="btn btn-sm btn-outline-secondary me-2">Edit</a>
+            <form method="post" action="{% url 'dashboard:order_delete' order.id %}"style="display: inline">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="7">No orders found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
+
